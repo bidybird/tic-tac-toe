@@ -1,4 +1,7 @@
 //name marker
+const player1 = playerFactory(formplayer1value, formmarkerselectedvalue1);
+const player2 = playerFactory(formplayer2value, formmarkerselectedvalue2);
+
 const playerFactory = (name, marker) => {
   // marker will mark a game-board spot with their marker...
   const playerMove = () => marker;
@@ -38,58 +41,21 @@ const gameBoard = (() => {
     for (let i = 0; i < boardSize; i++) {
       placement[i].addEventListener("click", function (e) {
         //console.log(e.target);
+        addMarker(e.target);
+        fillArray();
         return e.target;
       });
     }
   }
 
-  function selectSquareText() {
-    console.log(selectSquare().textContent);
-    return selectSquare().textContent;
+  function addMarker(elementSelected) {
+    const newMarker = "X";
+    elementSelected.textContent = newMarker;
   }
 
   return {
     gameArray: gameArray,
-    createBoard: createBoard,
-    fillArray: fillArray,
   };
 })();
 
-// const makeBoard = gameBoard.createBoard;
-// const array = gameBoard.fillArray;
-// const square = gameBoard.selectSquare;
-
 console.log(gameBoard.gameArray);
-
-// const gameBoard = (() => {
-//   "use strict";
-//   const gameArray = [];
-
-//   const placement = document.querySelector("#gameBoard").children;
-
-//   function gameContent() {
-//     for (let i = 0; i < placement.length; i++) {
-//       gameArray[i] = placement[i].textContent;
-
-//       placement[i].addEventListener("click", function (e) {
-//         console.log(e.target);
-//       });
-//     }
-//     return gameArray;
-//   }
-
-//   return { value: gameContent() };
-//})();
-
-// placement.addEventListener("click", function (e) {
-//   console.log(e.target);
-// });
-
-// const displayController(() => {
-//     const ;
-//     const ;
-//     return {
-//         ,
-
-//     };
-// })();
