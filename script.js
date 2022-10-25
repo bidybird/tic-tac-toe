@@ -3,10 +3,15 @@
 // const player2 = playerFactory(formplayer2value, formmarkerselectedvalue2);
 
 // const playerFactory = (name, marker) => {
-//   // marker will mark a game-board spot with their marker...
-//   const playerMove = () => marker;
-//   return { name, marker, playerMove };
-//};
+//   //const playerMove = () => marker;
+
+//   const getName = () => console.log(name);
+//   const getMarker = () => console.log(marker);
+
+//   return { getName, getMarker };
+// };
+
+const player1 = playerFactory("player1", "X");
 
 //gameboard module
 const gameBoard = (() => {
@@ -67,7 +72,33 @@ const markTwo = "o";
 const twoWin = markTwo + markTwo + markTwo;
 let result = "";
 
-let array = ["x", "x", "x", "o", "o", "", "", "", ""];
+let array = ["x", "x", "o", "o", "o", "o", "", "", ""];
+
+// let turns = [
+//   { player: 1, location: 0 },
+//   { player: 2, location: 1 },
+// ];
+
+//there are nine turns max
+let turns = [turn1, turn2, turn1, turn2, turn1, turn2, turn1, turn2, turn1];
+// each turn is an execution of an eventAction of an event listener on the gameBoard
+let turn1 = [{ player1: selectSquare() }];
+let turn2 = [{ player2: selectSquare() }];
+// odd turns are playerOnes, marks with x, at location clicked
+
+// even turns are playerTwos, marks with o, at location clicked
+
+// each time a turn occurs the answers checked to determine a winner
+
+// cycle repeats
+
+// turns end if a player wins or all turns are used up
+
+// if all turns are used up game declared a tie
+
+// function changeTurn() {
+//     if player
+// }
 
 let answerArray = [];
 
