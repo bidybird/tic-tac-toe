@@ -61,62 +61,43 @@ const gameBoard = (() => {
 console.log(gameBoard.gameArray);
 
 //game logic
-const markerOne = "x";
-const markerTwo = "o";
-const playerX = "";
-const playerO = "";
-const result = "";
+const markOne = "x";
+const oneWin = markOne + markOne + markOne;
+const markTwo = "o";
+const twoWin = markTwo + markTwo + markTwo;
+let result = "";
 
-const array = [
-  markerOne,
-  markerOne,
-  "",
-  "",
-  "",
-  markerOne,
-  markerOne,
-  "",
-  markerOne,
-];
+let array = ["x", "x", "x", "o", "o", "", "", "", ""];
 
-if (
-  (array[0] === markerOne && array[0] === array[1] && array[1] === array[2]) ||
-  (array[3] === markerOne && array[3] === array[4] && array[4] === array[5]) ||
-  (array[6] === markerOne && array[6] === array[7] && array[7] === array[8]) ||
-  (array[0] === markerOne && array[0] === array[3] && array[3] === array[6]) ||
-  (array[1] === markerOne && array[1] === array[4] && array[4] === array[7]) ||
-  (array[2] === markerOne && array[2] === array[5] && array[5] === array[8]) ||
-  (array[0] === markerOne && array[0] === array[4] && array[4] === array[8]) ||
-  (array[2] === markerOne && array[2] === array[4] && array[4] === array[6])
-) {
-  playerX = "wins";
-  console.log(`playerX ${playerX}`);
-  result = `playerX ${playerX}`;
-  return result;
-} else if (
-  (array[0] === markerTwo && array[0] === array[1] && array[1] === array[2]) ||
-  (array[3] === markerTwo && array[3] === array[4] && array[4] === array[5]) ||
-  (array[6] === markerTwo && array[6] === array[7] && array[7] === array[8]) ||
-  (array[0] === markerTwo && array[0] === array[3] && array[3] === array[6]) ||
-  (array[1] === markerTwo && array[1] === array[4] && array[4] === array[7]) ||
-  (array[2] === markerTwo && array[2] === array[5] && array[5] === array[8]) ||
-  (array[0] === markerTwo && array[0] === array[4] && array[4] === array[8]) ||
-  (array[2] === markerTwo && array[2] === array[4] && array[4] === array[6])
-) {
-  playerO = "wins";
-  console.log(`playerO ${playerO}`);
-  result = `playerO ${playerO}`;
-  return result;
-} else if (
-  array[0] !== "" &&
-  array[1] !== "" &&
-  array[2] !== "" &&
-  array[3] !== "" &&
-  array[4] !== "" &&
-  array[5] !== "" &&
-  array[6] !== "" &&
-  array[7] !== "" &&
-  array[8] !== ""
-) {
-  result = `playerX and playerO tied`;
+let answerArray = [];
+
+function fillAnswerArray(array) {
+  answerArray = [];
+  answerArray.push(array[0] + array[1] + array[2]);
+  answerArray.push(array[3] + array[4] + array[5]);
+  answerArray.push(array[6] + array[7] + array[8]);
+  answerArray.push(array[0] + array[3] + array[6]);
+  answerArray.push(array[1] + array[4] + array[7]);
+  answerArray.push(array[2] + array[5] + array[8]);
+  answerArray.push(array[0] + array[4] + array[8]);
+  answerArray.push(array[2] + array[4] + array[8]);
+}
+
+playGame();
+
+function playGame() {
+  fillAnswerArray(array);
+  for (let i = 0; i < answerArray.length; i++) {
+    if (answerArray[i] === oneWin) {
+      console.log(`playerX wins`);
+      result = `playerX wins`;
+      return result;
+    } else if (answerArray[i] === twoWin) {
+      console.log(`playerO wins`);
+      result = `playerO wins`;
+      return result;
+    }
+  }
+  console.log("players tied");
+  return "players tied";
 }
