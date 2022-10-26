@@ -1,24 +1,10 @@
-//name marker
-// const player1 = playerFactory(formplayer1value, formmarkerselectedvalue1);
-// const player2 = playerFactory(formplayer2value, formmarkerselectedvalue2);
-
-// const playerFactory = (name, marker) => {
-//   //const playerMove = () => marker;
-
-//   const getName = () => console.log(name);
-//   const getMarker = () => console.log(marker);
-
-//   return { getName, getMarker };
-// };
-
-//const player1 = playerFactory("player1", "X");
-
 //gameboard module
 const gameBoard = (() => {
   "use strict";
   const boardSize = 9;
   const selectBoard = document.querySelector("#gameBoard");
   const gameArray = [];
+  let turnCount = 0;
 
   createBoard();
   fillArray();
@@ -45,64 +31,67 @@ const gameBoard = (() => {
     const placement = selectBoard.children;
     for (let i = 0; i < boardSize; i++) {
       placement[i].addEventListener("click", function (e) {
-        //console.log(e.target);
-        addPlayerMarker(e.target);
-        fillArray();
-        return e.target;
+        if (placement[i].textContent === "") {
+          addPlayerMarker(e.target);
+          fillArray();
+          console.log(turnCount);
+          turnCount = turnCount + 1;
+          gameBoard.turnCount = turnCount;
+          checkTheMarks(marksArray);
+          resetGame(); //if a result was triggered
+        }
       });
     }
   }
 
+  function resetGame() {
+    if (result !== "") {
+      console.log("result was triggered");
+      result = "";
+      gameBoard.turnCount = 0;
+      turnCount = 0;
+      winArray = [];
+      fillBoardWithBlanks();
+    }
+  }
+
+  function fillBoardWithBlanks() {
+    const placement = selectBoard.children;
+    for (let i = 0; i < boardSize; i++) {
+      placement[i].textContent = "";
+      gameArray[i] = placement[i].textContent;
+    }
+  }
+
   function addPlayerMarker(square) {
-    const newMarker = "x"; //changeMarker()
+    const newMarker = changeMarker();
     square.textContent = newMarker;
   }
 
-  //function changeMarker(markOne, markTwo) {}
+  function changeMarker() {
+    if (turnCount === 0) {
+      return markOne;
+    } else if (turnCount % 2 === 1) {
+      return markTwo;
+    } else {
+      return markOne;
+    }
+  }
 
   return {
     gameArray: gameArray,
+    turnCount: turnCount,
   };
 })();
 
-console.log(gameBoard.gameArray);
-
-//game logic
-const markOne = "x";
+//variable list
+const markOne = "X";
 const playerOneWin = markOne + markOne + markOne;
-const markTwo = "o";
+const markTwo = "O";
 const playerTwoWin = markTwo + markTwo + markTwo;
 let result = "";
 
 let marksArray = gameBoard.gameArray;
-
-console.log(marksArray);
-
-// let turns = [
-//   { player: 1, location: 0 },
-//   { player: 2, location: 1 },
-// ];
-
-//there are nine turns max
-////let turns = [turn1, turn2, turn1, turn2, turn1, turn2, turn1, turn2, turn1];
-// each turn is an execution of an eventAction of an event listener on the gameBoard
-////let turn1 = [{ player1: selectSquare() }];
-////let turn2 = [{ player2: selectSquare() }];
-// odd turns are playerOnes, marks with x, at location clicked
-
-// even turns are playerTwos, marks with o, at location clicked
-
-// each time a turn occurs the answers checked to determine a winner
-
-// cycle repeats
-
-// turns end if a player wins or all turns are used up
-
-// if all turns are used up game declared a tie
-
-// function changeTurn() {
-//     if player
-// }
 
 let winArray = [];
 
@@ -118,18 +107,22 @@ function organizeMarks(array) {
   winArray.push(array[2] + array[4] + array[6]);
 }
 
-checkTheMarks();
-
-function checkTheMarks() {
-  organizeMarks(marksArray);
+function checkTheMarks(array) {
+  organizeMarks(array);
   for (let i = 0; i < winArray.length; i++) {
     if (winArray[i] === playerOneWin) {
+      console.log("player1 wins");
       result = `playerX wins`;
       return result;
     } else if (winArray[i] === playerTwoWin) {
+      console.log("player2 wins");
       result = `playerO wins`;
       return result;
     }
   }
-  return "players tied";
+  if (gameBoard.turnCount % 9 === 0) {
+    console.log("players tied");
+    result = "players tied";
+    return result;
+  }
 }
