@@ -11,7 +11,7 @@
 //   return { getName, getMarker };
 // };
 
-const player1 = playerFactory("player1", "X");
+//const player1 = playerFactory("player1", "X");
 
 //gameboard module
 const gameBoard = (() => {
@@ -46,17 +46,19 @@ const gameBoard = (() => {
     for (let i = 0; i < boardSize; i++) {
       placement[i].addEventListener("click", function (e) {
         //console.log(e.target);
-        addMarker(e.target);
+        addPlayerMarker(e.target);
         fillArray();
         return e.target;
       });
     }
   }
 
-  function addMarker(elementSelected) {
-    const newMarker = "X";
-    elementSelected.textContent = newMarker;
+  function addPlayerMarker(square) {
+    const newMarker = "x"; //changeMarker()
+    square.textContent = newMarker;
   }
+
+  //function changeMarker(markOne, markTwo) {}
 
   return {
     gameArray: gameArray,
@@ -67,12 +69,14 @@ console.log(gameBoard.gameArray);
 
 //game logic
 const markOne = "x";
-const oneWin = markOne + markOne + markOne;
+const playerOneWin = markOne + markOne + markOne;
 const markTwo = "o";
-const twoWin = markTwo + markTwo + markTwo;
+const playerTwoWin = markTwo + markTwo + markTwo;
 let result = "";
 
-let array = ["x", "x", "o", "o", "o", "o", "", "", ""];
+let marksArray = gameBoard.gameArray;
+
+console.log(marksArray);
 
 // let turns = [
 //   { player: 1, location: 0 },
@@ -80,10 +84,10 @@ let array = ["x", "x", "o", "o", "o", "o", "", "", ""];
 // ];
 
 //there are nine turns max
-let turns = [turn1, turn2, turn1, turn2, turn1, turn2, turn1, turn2, turn1];
+////let turns = [turn1, turn2, turn1, turn2, turn1, turn2, turn1, turn2, turn1];
 // each turn is an execution of an eventAction of an event listener on the gameBoard
-let turn1 = [{ player1: selectSquare() }];
-let turn2 = [{ player2: selectSquare() }];
+////let turn1 = [{ player1: selectSquare() }];
+////let turn2 = [{ player2: selectSquare() }];
 // odd turns are playerOnes, marks with x, at location clicked
 
 // even turns are playerTwos, marks with o, at location clicked
@@ -100,35 +104,32 @@ let turn2 = [{ player2: selectSquare() }];
 //     if player
 // }
 
-let answerArray = [];
+let winArray = [];
 
-function fillAnswerArray(array) {
-  answerArray = [];
-  answerArray.push(array[0] + array[1] + array[2]);
-  answerArray.push(array[3] + array[4] + array[5]);
-  answerArray.push(array[6] + array[7] + array[8]);
-  answerArray.push(array[0] + array[3] + array[6]);
-  answerArray.push(array[1] + array[4] + array[7]);
-  answerArray.push(array[2] + array[5] + array[8]);
-  answerArray.push(array[0] + array[4] + array[8]);
-  answerArray.push(array[2] + array[4] + array[8]);
+function organizeMarks(array) {
+  winArray = [];
+  winArray.push(array[0] + array[1] + array[2]);
+  winArray.push(array[3] + array[4] + array[5]);
+  winArray.push(array[6] + array[7] + array[8]);
+  winArray.push(array[0] + array[3] + array[6]);
+  winArray.push(array[1] + array[4] + array[7]);
+  winArray.push(array[2] + array[5] + array[8]);
+  winArray.push(array[0] + array[4] + array[8]);
+  winArray.push(array[2] + array[4] + array[6]);
 }
 
-playGame();
+checkTheMarks();
 
-function playGame() {
-  fillAnswerArray(array);
-  for (let i = 0; i < answerArray.length; i++) {
-    if (answerArray[i] === oneWin) {
-      console.log(`playerX wins`);
+function checkTheMarks() {
+  organizeMarks(marksArray);
+  for (let i = 0; i < winArray.length; i++) {
+    if (winArray[i] === playerOneWin) {
       result = `playerX wins`;
       return result;
-    } else if (answerArray[i] === twoWin) {
-      console.log(`playerO wins`);
+    } else if (winArray[i] === playerTwoWin) {
       result = `playerO wins`;
       return result;
     }
   }
-  console.log("players tied");
   return "players tied";
 }
