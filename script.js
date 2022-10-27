@@ -85,15 +85,33 @@ const gameBoard = (() => {
 })();
 
 //variable list
-const markOne = "X";
-const playerOneWin = markOne + markOne + markOne;
-const markTwo = "O";
-const playerTwoWin = markTwo + markTwo + markTwo;
+let playerOneName = "";
+let markOne = "X";
+let playerTwoName = "";
+let markTwo = "O";
 let result = "";
 
 let marksArray = gameBoard.gameArray;
 
 let winArray = [];
+
+function playerWin(mark) {
+  return mark + mark + mark;
+}
+
+//change variable values with a form
+form = document.getElementById("register");
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  playerOneName = form.elements["playerOne"].value;
+  markOne = form.elements["markerOne"].value;
+  playerTwoName = form.elements["playerTwo"].value;
+  markTwo = form.elements["markerTwo"].value;
+  form.elements["playerOne"].value = "";
+  form.elements["markerOne"].value = "";
+  form.elements["playerTwo"].value = "";
+  form.elements["markerTwo"].value = "";
+});
 
 function organizeMarks(array) {
   winArray = [];
@@ -110,13 +128,13 @@ function organizeMarks(array) {
 function checkTheMarks(array) {
   organizeMarks(array);
   for (let i = 0; i < winArray.length; i++) {
-    if (winArray[i] === playerOneWin) {
-      console.log("player1 wins");
-      result = `playerX wins`;
+    if (winArray[i] === playerWin(markOne)) {
+      console.log(`${playerOneName} wins`);
+      result = `${playerOneName} wins`;
       return result;
-    } else if (winArray[i] === playerTwoWin) {
-      console.log("player2 wins");
-      result = `playerO wins`;
+    } else if (winArray[i] === playerWin(markTwo)) {
+      console.log(`${playerTwoName} wins`);
+      result = `${playerTwoName} wins`;
       return result;
     }
   }
