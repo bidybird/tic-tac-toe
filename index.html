@@ -10,22 +10,33 @@
 <body>
     <div id="gameResult"></div>
     <div id="container"></div>
-        <form id="playerEntry">
-
-        </form>
         <div id="gameBoard">
         </div>
+        <form action="somewhere" method="post" id="register">
+            <h4>Player entry. Enter the marker you want to use.</h4>
+            <div class="field">
+                <label for="playerOne">Player One:</label>
+                <input type="text" id="playerOne" name="playerOne" />
+            </div>
+            <div class="field">
+                <label for="markerOne">Marker:</label>
+                <input type="text" id="markerOne" name="markerOne" />
+            </div>
+            <div class="field">
+                <label for="playerTwo">Player Two:</label>
+                <input type="text" id="playerTwo" name="playerTwo" />
+            </div>
+            <div class="field">
+                <label for="markerTwo">Marker:</label>
+                <input type="text" id="markerTwo" name="markerTwo" />
+            </div>
+            <div class="field">
+                <button type="submit" class="full">Enter</button>
+            </div>
+        </form>   
         
-        <!-- <button id="replay">Replay</button> -->
+        <button id="replay">Replay</button>
         <script src="script.js"></script>
     </body>
     </html>
-    <!-- <div class="spot">x</div>
-    <div class="spot">o</div>
-    <div class="spot">x</div>
-    <div class="spot">o</div>
-    <div class="spot">x</div>
-    <div class="spot">o</div>
-    <div class="spot">x</div>
-    <div class="spot">o</div>
-    <div class="spot">x</div>  -->
+    
