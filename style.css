@@ -1,3 +1,11 @@
+#gameResult {
+    height: 40px;
+    width: 162px;
+    background-color: rgb(153, 185, 98);
+    color: rgb(15, 8, 62);
+    text-align: center;
+}
+
 #gameBoard {
     height: 162px;
     width: 162px;
@@ -10,6 +18,6 @@
 .square {
     width: 50px;
     height: 50px;
-    background-color: aliceblue;
+    background-color: rgb(255, 255, 255);
 
 }
