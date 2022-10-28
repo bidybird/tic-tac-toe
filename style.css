@@ -1,9 +1,20 @@
+#flexContainer {
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color: rgb(212, 212, 212);
+padding: 20px;
+}
+
 #gameResult {
-    height: 40px;
-    width: 162px;
+    height: 35px;
+    width: 150px;
     background-color: rgb(153, 185, 98);
+    border: 2px solid black;
     color: rgb(15, 8, 62);
     text-align: center;
+    padding-top: 15px;
+    margin-bottom: 10px;
 }
 
 #gameBoard {
