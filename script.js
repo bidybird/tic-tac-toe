@@ -39,21 +39,33 @@ const gameBoard = (() => {
           turnCount = turnCount + 1;
           gameBoard.turnCount = turnCount;
           checkTheMarks(marksArray);
-          resetGame(); //if a result was triggered
+          stopGame(); //if a result was triggered
         }
       });
     }
   }
 
-  function resetGame() {
+  function stopGame() {
     if (result !== "") {
-      console.log("result was triggered");
+      displayResult();
+      document.getElementById("gameBoard").style.visibility = "hidden";
+    }
+  }
+
+  function displayResult() {
+    return (document.getElementById("gameResult").textContent = result);
+  }
+
+  function useResetButton() {
+    document.getElementById("replay").addEventListener("click", function () {
       result = "";
+      displayResult();
+      document.getElementById("gameBoard").style.visibility = "visible";
       gameBoard.turnCount = 0;
       turnCount = 0;
       winArray = [];
       fillBoardWithBlanks();
-    }
+    });
   }
 
   function fillBoardWithBlanks() {
@@ -62,15 +74,6 @@ const gameBoard = (() => {
       placement[i].textContent = "";
       gameArray[i] = placement[i].textContent;
     }
-  }
-
-  function useResetButton() {
-    document.getElementById("replay").addEventListener("click", function () {
-      gameBoard.turnCount = 0;
-      turnCount = 0;
-      winArray = [];
-      fillBoardWithBlanks();
-    });
   }
 
   function addPlayerMarker(square) {
@@ -95,9 +98,9 @@ const gameBoard = (() => {
 })();
 
 //variable list
-let playerOneName = "";
+let playerOneName = "PlayerOne";
 let markOne = "X";
-let playerTwoName = "";
+let playerTwoName = "PlayerTwo";
 let markTwo = "O";
 let result = "";
 
