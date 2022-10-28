@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="gameResult"></div>
-    <div id="container"></div>
+    <div id="flexContainer">
+        <div id="gameResult"></div>
         <div id="gameBoard"></div>
         <form action="somewhere" method="post" id="register">
             <h4>Enter the marker you want to use.<br>Press replay when a round ends.</h4>
@@ -33,9 +33,9 @@
                 <button type="submit" class="full">Enter</button>
             </div>
         </form>   
-        
         <button id="replay">Replay</button>
-        <script src="script.js"></script>
+    </div>
+    <script src="script.js"></script>
     </body>
     </html>
     
