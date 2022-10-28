@@ -8,6 +8,7 @@ const gameBoard = (() => {
 
   createBoard();
   fillArray();
+  useResetButton();
   selectSquare();
 
   function createBoard() {
@@ -61,6 +62,15 @@ const gameBoard = (() => {
       placement[i].textContent = "";
       gameArray[i] = placement[i].textContent;
     }
+  }
+
+  function useResetButton() {
+    document.getElementById("replay").addEventListener("click", function () {
+      gameBoard.turnCount = 0;
+      turnCount = 0;
+      winArray = [];
+      fillBoardWithBlanks();
+    });
   }
 
   function addPlayerMarker(square) {
